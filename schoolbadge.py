@@ -1,52 +1,24 @@
 
 
-#this version is designed for offline use, but with wifi (internet) for time
+#import RpiSetup as rpi
+#import RFIDReader 
+#import FunLib
+#from datetime import datetime, timedelta   
 
-#hardware
-# 1. mfrc522 RFID badge reader
-# 2. raspberry Pi 3 B
-# 3. one relay (turning on and off usb power to screen)
-# 4. hmdi screen with usb power (7-8 inch ~) 1024*600
-# 5. usb-powered cheap speakers
-# 6. 5V Ip65 ~15 Watt transfo
-# 7. watertight enclosure
-
-#things learned so far:
-# running from shell script changes folder it's running from - hence use of full paths :-)
-# using usb stick got wonky - direct referral didn't work anymore - hence only SD (for now)
-
-###### TO DO ##### - NOT in order of importance :-) ##################################""
-# 1. add some kind of fault intercept/error handling to keep it running
-# 2. add some kind of weekly/ daily mail with the data
-# 3. instead of mail --> push reading to internet (but keap a log on sd card)
-# 4. make raspberry pi accesible from internet (https://magpi.raspberrypi.com/articles/remote-access-your-raspberry-pi-securely)
-# 5. stop making 2 log files
-# 6. add some kind of error log (for fault investigations)
-# 7. add more visual feedback on sound playback
-# 8. activate sleep routines - maybe better to externalise those (use seperate programmable timer on the mains?)
-
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM) #board numbers
-import sys
-sys.path.append('/home/pi/MFRC522-python')
-from mfrc522 import SimpleMFRC522 #simplified library for tag reader
-import subprocess
-import os, random
-import time
-from datetime import datetime, timedelta   
-import vlc
+import RpiMock as rpi
+import RFIDReaderMock as RFIDReader
+import FunLib as funlib
+from datetime import datetime, timedelta
 
 #definition of variables
-reader = SimpleMFRC522()
+reader = RFIDReader.RFIDReader()
 LoopOn = 1
 mediaDir = "/home/pi/Schoolbadge/media/" #For movies
 imageDir = "/home/pi/Schoolbadge/images/" #For pictures
 soundDir = "/home/pi/Schoolbadge/sound/" #For sounds
 #mediaDir = '/media/pi/UDISK/Schoolbadge/media/' #from 7/10/2021 issues wih USB stick - no longer in use
 logbestand = "20210913.csv"
-relais_gpio = 17 #pin number for screen relais
-media_player = vlc.MediaPlayer()
-media_player.toggle_fullscreen()
+
 aantalsucces = int(0) # number for succesfull badge attempts
 
 #setup logfile on reboot (= 1e day of the week)
@@ -63,60 +35,16 @@ logsbestandSD = "/home/pi/Schoolbadge/LogSD/" + Maandag.strftime("%Y%m%d") + ".c
 
 #functions
 
-def succesmovie(text): # show a movie on succes
-   
-    mediaFile = random.choice(os.listdir(mediaDir))
-    mediaFilePath = os.path.join(mediaDir, mediaFile)
-    
-    media = vlc.Media(mediaFilePath)
-    media_player.set_media(media)
-   
-    media_player.play()
-    GPIO.output(relais_gpio, GPIO.LOW) #screen on
-    time.sleep(1) # before reading media player for lenght, we have to wait, otherwise mediaplayer is not yet ready ;-)
-    Duur = media_player.get_length() #in miliseconds
-    Duur = Duur/1000-1
-    time.sleep(Duur)
-    GPIO.output(relais_gpio, GPIO.HIGH) #screen off
+def succesmovie(): # show a movie on succes
+   rpi.playMovie()
 
-def succesimage(text): # show image on bading
-    mediaFile = random.choice(os.listdir(imageDir))
-    mediaFilePath = os.path.join(imageDir, mediaFile)
-    media = vlc.Media(mediaFilePath)
-    media_player.set_media(media)
-    media_player.play()
-    GPIO.output(relais_gpio, GPIO.LOW) #screen on
-    time.sleep(1)
-    Duur = 2
-    time.sleep(Duur) #makes a total of 3 seconds for the image
-    GPIO.output(relais_gpio, GPIO.HIGH) #screen off
 
-def successound(text): # play succesfull sound
-    mediaFile = random.choice(os.listdir(soundDir))
-    mediaFilePath = os.path.join(soundDir, mediaFile)
-    media = vlc.Media(mediaFilePath)
-    media_player.set_media(media)
-    media_player.play()
-    #GPIO.output(relais_gpio, GPIO.LOW) #screen on (not needed for sound)
-    time.sleep(3)
-    #Duur = 2
-    #time.sleep(Duur)
-    media_player.pause()
-    #GPIO.output(relais_gpio, GPIO.HIGH) #screen off
+def succesimage(): # show image on bading
+    rpi.showPicture()
 
-def success(text): #this function decides wheter a movie, sound or image is played, based on school lady preferences (1/5 is movie, 2/5 is audio, 2/5 is image)
-    global aantalsucces #global declaration needed for use in function
-    aantalsucces = aantalsucces + 1
-    # show images
-    if aantalsucces == 1 or aantalsucces == 3:
-        succesimage(text)
-    # show movies
-    if aantalsucces == 5:
-        aantalsucces = 0
-        succesmovie(text)
-    # play sound
-    if aantalsucces == 2 or aantalsucces == 4:
-        successound(text)
+def successound(): # play succesfull sound
+    rpi.playSound()
+
 
 def CheckRFID5min():
     #tis is a loop that checks the rfid reader for 5 minutes 
@@ -154,9 +82,7 @@ def CheckTime(): #this one is to do certain things at certain moments (like, sle
         logbestand = "/media/pi/UDISK/Schoolbadge/Logs/" + Datum + ".csv" #dus 1x per week een nieuwe bestandsnaam
         logsbestandSD = "/home/pi/Schoolbadge/LogSD/" + ".csv" + Datum + ".csv"
 
-#setup phase (klaarzetten voor loop)
-GPIO.setup(relais_gpio, GPIO.OUT) #GPIO assign mode
-GPIO.output(relais_gpio, GPIO.HIGH) #screen off
+
 
 #these are for remembering the last 5 badge attempts
 id5 = 0 
@@ -164,6 +90,10 @@ id4 = 0
 id3 = 0
 id2 = 0
 id1 = 0
+
+aantalsucces = 0
+
+rpi.start();
 
 #program loop - this one should allways be kept running (~error handling to add)
 while (LoopOn == 1):
@@ -173,8 +103,8 @@ while (LoopOn == 1):
     #if (id != 0) and (id != id5) and (id != id4) and (id != id3) and (id != id2) and (id != id1): #current id may not be equal to last 5 
     # this line above was changed in the one under - for testing perposes remembering the last 5 id's was ... not handy
     if (id != 0) and (id != id1): #current id may not be equal to last 1 
-        success(text) #sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
-        WriteToLog(id, text) # writing the result to log - internet says this could take 0.3 seconds
+        funlib.success(rpi, text) #sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
+        #WriteToLog(id, text) # writing the result to log - internet says this could take 0.3 seconds
         #move up last 5 id's
         id5 = id4 
         id4 = id3
@@ -183,9 +113,5 @@ while (LoopOn == 1):
         id1 = id
     CheckTime() #to add time-relevant functions, like sleep, or make new log file  
 
+rpi.stop();
 
-#ending
-
-GPIO.output(relais_gpio, GPIO.LOW) #screen on
-GPIO.cleanup() 
-# these are funny, because this program actually never ends except for RUD

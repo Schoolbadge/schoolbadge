@@ -2,7 +2,7 @@
 
 this version is designed for offline use, but with wifi (internet) for time
 
-#hardware
+# hardware
 
 1. mfrc522 RFID badge reader
 2. raspberry Pi 3 B
@@ -12,12 +12,12 @@ this version is designed for offline use, but with wifi (internet) for time
 6. 5V Ip65 ~15 Watt transfo
 7. watertight enclosure
 
-#things learned so far:
+# things learned so far:
 
 - running from shell script changes folder it's running from - hence use of full paths :-)
 - using usb stick got wonky - direct referral didn't work anymore - hence only SD (for now)
 
-###### TO DO ##### - NOT in order of importance :-) ##################################""
+# TO DO
 
 - add some kind of fault intercept/error handling to keep it running
 - add some kind of weekly/ daily mail with the data
