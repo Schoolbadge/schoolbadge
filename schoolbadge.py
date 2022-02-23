@@ -5,6 +5,7 @@
 #import FunLib
 #from datetime import datetime, timedelta   
 
+import Logger as Logger
 import RpiMock as rpi
 import RFIDReaderMock as RFIDReader
 import FunLib as funlib
@@ -94,6 +95,7 @@ id1 = 0
 aantalsucces = 0
 
 rpi.start();
+Logger.log('Started', 'debug')
 
 #program loop - this one should allways be kept running (~error handling to add)
 while (LoopOn == 1):
@@ -104,6 +106,7 @@ while (LoopOn == 1):
     # this line above was changed in the one under - for testing perposes remembering the last 5 id's was ... not handy
     if (id != 0) and (id != id1): #current id may not be equal to last 1 
         funlib.success(rpi, text) #sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
+        
         #WriteToLog(id, text) # writing the result to log - internet says this could take 0.3 seconds
         #move up last 5 id's
         id5 = id4 
