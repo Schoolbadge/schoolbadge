@@ -6,7 +6,7 @@ SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive'
 ]
-SERVICE_ACCOUNT_FILE = 'data/secrets.json'
+SERVICE_ACCOUNT_FILE = 'data/secret.json'
 
 credentials = None
 
@@ -24,13 +24,13 @@ spreadsheet = {
         'title': 'logging'
     }
 }
-spreadsheet_id = '1KdXrEQ1BzDiH6Y6-8qGgszsVztE4V7siSQRIAQpGZH8'
+spreadsheet_id = '1xM4FMgkksczHL3AbxMMa_kpBeOBnuJ_y9pjTLyB_sHc'
 range_name="A1:B1"
 value_input_option = 'RAW'
 
 values = [
     [
-        'hallo'
+        'foutje, blanco erover'
     ]
 ]
 body = {
