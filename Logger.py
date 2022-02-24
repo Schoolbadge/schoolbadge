@@ -1,7 +1,8 @@
-from secrets import randbelow
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from datetime import datetime
+from enum import Enum 
+from json import dumps as serialize
 
 SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -17,12 +18,18 @@ spreadsheet_id = '1xM4FMgkksczHL3AbxMMa_kpBeOBnuJ_y9pjTLyB_sHc'
 range_name="A1"
 value_input_option = 'RAW'
 
-def log(msg, serverity = 'info'):
+class Level(str, Enum):
+    DEBUG = 'DEBUG'
+    INFO = 'INFO'    
+    WARN =  'WARN'
+    ERROR = 'ERROR'
+
+def log(msg, serverity = Level.INFO):    
     values = [
         [
             datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             msg,
-            serverity        
+            serialize(serverity)        
         ]
     ]
     body = {

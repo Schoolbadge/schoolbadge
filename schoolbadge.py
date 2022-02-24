@@ -5,11 +5,13 @@
 #import FunLib
 #from datetime import datetime, timedelta   
 
+from distutils.log import Log
 import Logger as Logger
 import RpiMock as rpi
 import RFIDReaderMock as RFIDReader
 import FunLib as funlib
 from datetime import datetime, timedelta
+import time
 
 #definition of variables
 reader = RFIDReader.RFIDReader()
@@ -95,11 +97,12 @@ id1 = 0
 aantalsucces = 0
 
 rpi.start();
-Logger.log('Started', 'debug')
+Logger.log("Rpi Started", Logger.Level.INFO)
 
 #program loop - this one should allways be kept running (~error handling to add)
 while (LoopOn == 1):
     id, text = CheckRFID5min() 
+    Logger.log('RFID read: ' + str(id) + ' - ' + text, Logger.Level.INFO)
     #checks RFID for 5 minutes - when managed to scan one, everything is returned (id and text are 2 string variables, id is factory unique)
     #er wordt gedurende 5 min naar RFID gezocht. Indien vroeger geregistreerd, wordt alles gereturned
     #if (id != 0) and (id != id5) and (id != id4) and (id != id3) and (id != id2) and (id != id1): #current id may not be equal to last 5 
