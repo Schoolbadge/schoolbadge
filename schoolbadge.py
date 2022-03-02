@@ -119,5 +119,5 @@ while (LoopOn == 1):
         id1 = id
     CheckTime() #to add time-relevant functions, like sleep, or make new log file  
 
-rpi.stop();
+rpi.stop()
 
