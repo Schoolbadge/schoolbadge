@@ -26,4 +26,4 @@ def success(rpi, text):
     # # play sound
     # if aantalsucces == 2 or aantalsucces == 4:
     #     rpi.successound()
-    await rpi.playMovie()
+    rpi.playMovie()
