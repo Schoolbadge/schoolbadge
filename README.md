@@ -2,6 +2,15 @@
 
 this version is designed for offline use, but with wifi (internet) for time
 
+# test setup
+
+## on windows
+
+- use chocolatey to required software: choco install python3 vlc git
+- clone the repository
+- perform python install in project directory: pip install -r requirements.txt
+- run program: py ./schoolbadge.py
+
 # hardware
 
 1. mfrc522 RFID badge reader
