@@ -87,13 +87,7 @@ def CheckTime(): #this one is to do certain things at certain moments (like, sle
 
 
 
-#these are for remembering the last 5 badge attempts
-id5 = 0 
-id4 = 0
-id3 = 0
-id2 = 0
-id1 = 0
-
+prevId = 0
 aantalsucces = 0
 
 rpi.start();
@@ -101,15 +95,18 @@ Logger.log("Rpi Started", Logger.Level.INFO)
 
 #program loop - this one should allways be kept running (~error handling to add)
 while (LoopOn == 1):
-    id, text = CheckRFID5min() 
-    Logger.log('RFID read: ' + str(id) + ' - ' + text, Logger.Level.INFO)
+    id, text = CheckRFID5min()     
+    #Logger.log('RFID read: ' + str(id) + ' - ' + text, Logger.Level.INFO)
     #checks RFID for 5 minutes - when managed to scan one, everything is returned (id and text are 2 string variables, id is factory unique)
     #er wordt gedurende 5 min naar RFID gezocht. Indien vroeger geregistreerd, wordt alles gereturned
     #if (id != 0) and (id != id5) and (id != id4) and (id != id3) and (id != id2) and (id != id1): #current id may not be equal to last 5 
     # this line above was changed in the one under - for testing perposes remembering the last 5 id's was ... not handy
-    if (id != 0): # and (id != id1): #current id may not be equal to last 1
-        funlib.success(rpi, text) #sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
-        
+    if (id != 0) and (id != prevId):
+        prevId = id
+        funlib.success(rpi) #sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
+    print("id: ",id, "prevId", prevId)
+    if (id == prevId):
+        funlib.fail(rpi)
         #WriteToLog(id, text) # writing the result to log - internet says this could take 0.3 seconds
         #move up last 5 id's
         #id5 = id4 
