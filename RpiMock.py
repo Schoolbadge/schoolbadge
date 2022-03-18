@@ -3,7 +3,7 @@ import os
 import vlc
 import time
 
-mediaFilePath = 'C:\Me\Projects\schoolbadge\media\dansendekat.mp4'
+mediaFilePath = 'media\sample-5s.mp4'
 media_player = vlc.MediaPlayer()
 _finishedCallback = None
 
@@ -21,6 +21,7 @@ def playMovie():
     time.sleep(1.5)
     duration = media_player.get_length() / 1000
     time.sleep(duration)
+    media_player.stop()
 
 def showPicture():
     print('rpi show picture')

@@ -7,8 +7,7 @@ class RFIDReader():
         print("RFIDReaderMock.__init__()")
     
     def read_no_block(self):
-        r = random.randint(0, 1)
-        print('random:',r)
+        r = random.randint(0, 1)        
         if (r == 1):
             id = "123456789"
             text = "RFIDReaderMock"

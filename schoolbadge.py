@@ -56,7 +56,7 @@ def CheckRFID5min():
     while ((datetime.now()-starttijd) <timedelta(seconds=300) ):
         id, text = reader.read_no_block()  #read reader once
         if id != None:
-            print(id,"-",text)
+            print("Result from RFID Reader: ",id,"-",text)
             return id, text
         time.sleep(0.2) #to sleep x seconds --> we don't want to overdo it :-) - 0.2 was arbitrary chosen
     return 0, "leeg"
@@ -107,17 +107,17 @@ while (LoopOn == 1):
     #er wordt gedurende 5 min naar RFID gezocht. Indien vroeger geregistreerd, wordt alles gereturned
     #if (id != 0) and (id != id5) and (id != id4) and (id != id3) and (id != id2) and (id != id1): #current id may not be equal to last 5 
     # this line above was changed in the one under - for testing perposes remembering the last 5 id's was ... not handy
-    if (id != 0) and (id != id1): #current id may not be equal to last 1 
+    if (id != 0): # and (id != id1): #current id may not be equal to last 1
         funlib.success(rpi, text) #sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
         
         #WriteToLog(id, text) # writing the result to log - internet says this could take 0.3 seconds
         #move up last 5 id's
-        id5 = id4 
-        id4 = id3
-        id3 = id2
-        id2 = id1
-        id1 = id
+        #id5 = id4 
+        #id4 = id3
+        #id3 = id2
+        #id2 = id1
+        #id1 = id
     CheckTime() #to add time-relevant functions, like sleep, or make new log file  
 
-rpi.stop()
+rpi.stop();
 
