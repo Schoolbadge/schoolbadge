@@ -1,5 +1,9 @@
 # schoolbadge
 
+## components
+- schoolbadge.py => RFID Reader
+- schoolbadge-web.py => Management tool
+
 this version is designed for offline use, but with wifi (internet) for time
 
 # test setup
