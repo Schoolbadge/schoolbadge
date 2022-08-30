@@ -8,7 +8,7 @@
 from distutils.log import Log
 import Logger as Logger
 import RpiMock as rpi
-import RFIDReaderMock as RFIDReader
+import RFIDReader as RFIDReader
 import FunLib as funlib
 from datetime import datetime, timedelta
 import time
