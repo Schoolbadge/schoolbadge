@@ -1,6 +1,7 @@
 # schoolbadge
 
 ## components
+
 - schoolbadge.py => RFID Reader
 - schoolbadge-web.py => Management tool
 
@@ -12,7 +13,7 @@ this version is designed for offline use, but with wifi (internet) for time
 
 - use chocolatey to required software: choco install python3 vlc git
 - clone the repository
-- perform python install in project directory: pip install -r requirements.txt
+- perform python install in project directory: python3 -m pip install -r requirements.txt
 - run program: py ./schoolbadge.py
 
 # hardware
