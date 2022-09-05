@@ -2,6 +2,11 @@ google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
 python-vlc
+<<<<<<< HEAD
 spidev
 mfrc522
 pandas
+=======
+pandas
+mfrc522
+>>>>>>> 2e1128476b01f5a40750b1c8ffc2f02837727365

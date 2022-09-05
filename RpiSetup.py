@@ -3,6 +3,7 @@
 import RPi.GPIO as GPIO
 import os, random, time
 import vlc
+import json
 
 
 relais_gpio = 17 #pin number for screen relais
@@ -17,6 +18,13 @@ def start():
     #setup phase (klaarzetten voor loop)
     GPIO.setup(relais_gpio, GPIO.OUT) #GPIO assign mode
     GPIO.output(relais_gpio, GPIO.HIGH) #screen off
+
+    with('device-config.json', 'r') as configFile:
+        configData = configFile.read()
+    print("config:"+configData)
+    conf = json.load(configData)
+    return conf
+
 
 def stop():
     GPIO.output(relais_gpio, GPIO.LOW) #screen on
