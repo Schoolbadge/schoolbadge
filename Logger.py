@@ -3,6 +3,7 @@ from googleapiclient.discovery import build
 from datetime import datetime
 from enum import Enum 
 from json import dumps as serialize
+import pandas as pd
 
 SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -12,7 +13,7 @@ SERVICE_ACCOUNT_FILE = 'data/secret.json'
 
 credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
-service = build('sheets', 'v4', credentials=credentials)
+sheets_service = build('sheets', 'v4', credentials=credentials)
 
 spreadsheet_id = '1xM4FMgkksczHL3AbxMMa_kpBeOBnuJ_y9pjTLyB_sHc'
 range_name="A1"
@@ -24,18 +25,20 @@ class Level(str, Enum):
     WARN =  'WARN'
     ERROR = 'ERROR'
 
-def log(msg, deviceConfig, serverity = Level.INFO):    
+def log(msg, deviceRef, serverity = Level.INFO):        
     values = [
         [
             datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             msg,
-            deviceConfig,
+            deviceRef,
             serialize(serverity)        
         ]
     ]
+    log = pd.DataFrame(data=values, columns=['timestamp', 'summary', 'device', 'severity'])
+    log.to_csv('c:\\temp\\logs.csv', sep=';', index=False)
     body = {
         'values': values
     }
-    result = service.spreadsheets().values().append(
+    result = sheets_service.spreadsheets().values().append(
         spreadsheetId=spreadsheet_id, range=range_name,
         valueInputOption=value_input_option, body=body).execute()

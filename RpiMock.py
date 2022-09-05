@@ -2,11 +2,11 @@ import vlc
 import time
 import json
 
-media_player = {} #vlc.MediaPlayer()
+media_player = vlc.MediaPlayer()
 
 def start():
     print('rpi started')
-    #media_player.toggle_fullscreen()
+    media_player.toggle_fullscreen()
     with open('data/device-conf.json', 'r') as configFile:
         conf = json.load(configFile)    
     return conf
