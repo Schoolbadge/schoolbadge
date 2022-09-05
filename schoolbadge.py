@@ -8,13 +8,12 @@
 from distutils.log import Log
 import Logger as Logger
 import RpiMock as rpi
-import RFIDReader as RFIDReader
+import RFIDReader as reader
 import FunLib as funlib
 from datetime import datetime, timedelta
 import time
 
 #definition of variables
-reader = RFIDReader.RFIDReader()
 LoopOn = 1
 mediaDir = "/home/pi/Schoolbadge/media/" #For movies
 imageDir = "/home/pi/Schoolbadge/images/" #For pictures
@@ -47,15 +46,6 @@ def succesimage(): # show image on bading
 
 def successound(): # play succesfull sound
     rpi.playSound()
-
-
-def CheckRFID(loopOn):      
-    while (loopOn):
-        id = reader.read_no_block()  #read reader once
-        if id != None:
-            return id
-        time.sleep(0.2) #to sleep x seconds --> we don't want to overdo it :-) - 0.2 was arbitrary chosen
-    return 0
 
 # writing the data
 def WriteToLog(id, text):
@@ -91,9 +81,9 @@ Logger.log("Rpi Started", deviceConfig['ref'], Logger.Level.INFO)
 
 #program loop - this one should allways be kept running (~error handling to add)
 while (LoopOn == 1):
-    id = CheckRFID(LoopOn)    
-    Logger.log("Id scanned: ", deviceConfig['ref'], Logger.Level.INFO) 
-    if (id not in scannedBadgeIds):        
+    id, text = reader.Read();
+    Logger.log("Id scanned: ", id, deviceConfig['ref'], Logger.Level.INFO) 
+    if (id not in scannedBadgeIds):                
         scannedBadgeIds.append(id)
         funlib.success(rpi) #sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)    
     else:

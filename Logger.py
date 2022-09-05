@@ -25,17 +25,18 @@ class Level(str, Enum):
     WARN =  'WARN'
     ERROR = 'ERROR'
 
-def log(msg, deviceRef, serverity = Level.INFO):        
+def log(msg, badgeId, deviceRef, serverity = Level.INFO):        
     values = [
         [
             datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             msg,
+            badgeId,
             deviceRef,
             serialize(serverity)        
         ]
     ]
-    log = pd.DataFrame(data=values, columns=['timestamp', 'summary', 'device', 'severity'])
-    log.to_csv('c:\\temp\\logs.csv', sep=';', index=False)
+    log = pd.DataFrame(data=values, columns=['timestamp', 'summary', 'badgeId', 'device', 'severity'])
+    log.to_csv('c:\\temp\\logs.csv', sep=';', index=False, mode="a")
     body = {
         'values': values
     }
