@@ -24,11 +24,12 @@ class Level(str, Enum):
     WARN =  'WARN'
     ERROR = 'ERROR'
 
-def log(msg, serverity = Level.INFO):    
+def log(msg, deviceConfig, serverity = Level.INFO):    
     values = [
         [
             datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             msg,
+            deviceConfig,
             serialize(serverity)        
         ]
     ]
