@@ -10,6 +10,7 @@
 
 - use chocolatey to required software: choco install python3 vlc git
 - clone the repository
+- install dependency for pandas: sudo apt-get install libatlas-base-dev
 - perform python install in project directory: python3 -m pip install -r requirements.txt
 - run program: python3 ./schoolbadge.py
 
