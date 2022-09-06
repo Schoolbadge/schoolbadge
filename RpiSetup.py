@@ -13,16 +13,15 @@ soundDir = "/home/pi/Schoolbadge/sound/" #For sounds
 media_player = vlc.MediaPlayer()
 
 def start():
+    GPIO.cleanup()
     media_player.toggle_fullscreen()
     GPIO.setmode(GPIO.BCM) #board numbers
     #setup phase (klaarzetten voor loop)
     GPIO.setup(relais_gpio, GPIO.OUT) #GPIO assign mode
     GPIO.output(relais_gpio, GPIO.HIGH) #screen off
 
-    with('device-config.json', 'r') as configFile:
-        configData = configFile.read()
-    print("config:"+configData)
-    conf = json.load(configData)
+    with open('data/device-conf.json', 'r') as configFile:
+        conf = json.load(configFile)
     return conf
 
 
@@ -30,20 +29,33 @@ def stop():
     GPIO.output(relais_gpio, GPIO.LOW) #screen on
     GPIO.cleanup() 
 
-def playMovie():
-    mediaFile = random.choice(os.listdir(mediaDir))
-    mediaFilePath = os.path.join(mediaDir, mediaFile)
-    
-    media = vlc.Media(mediaFilePath)
-    media_player.set_media(media)
-   
+
+def playMovie(path):
+    media_player.set_media(vlc.Media(path))
     media_player.play()
+
     GPIO.output(relais_gpio, GPIO.LOW) #screen on
-    time.sleep(1) # before reading media player for lenght, we have to wait, otherwise mediaplayer is not yet ready ;-)
-    Duur = media_player.get_length() #in miliseconds
-    Duur = Duur/1000-1
-    time.sleep(Duur)
+
+    time.sleep(1.5)
+    duration = media_player.get_length() / 1000
+    time.sleep(duration)    
+
     GPIO.output(relais_gpio, GPIO.HIGH) #screen off
+    
+# def playMovie():
+#     mediaFile = random.choice(os.listdir(mediaDir))
+#     mediaFilePath = os.path.join(mediaDir, mediaFile)
+    
+#     media = vlc.Media(mediaFilePath)
+#     media_player.set_media(media)
+   
+#     media_player.play()
+#     GPIO.output(relais_gpio, GPIO.LOW) #screen on
+#     time.sleep(1) # before reading media player for lenght, we have to wait, otherwise mediaplayer is not yet ready ;-)
+#     Duur = media_player.get_length() #in miliseconds
+#     Duur = Duur/1000-1
+#     time.sleep(Duur)
+#     GPIO.output(relais_gpio, GPIO.HIGH) #screen off
 
 def showPicture():
     mediaFile = random.choice(os.listdir(imageDir))
