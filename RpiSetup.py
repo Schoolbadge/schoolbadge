@@ -13,6 +13,7 @@ mediaDir = "/home/pi/Schoolbadge/media/"  # For movies
 imageDir = "/home/pi/Schoolbadge/images/"  # For pictures
 soundDir = "/home/pi/Schoolbadge/sound/"  # For sounds
 media_player = vlc.MediaPlayer()
+media_player.retain()
 
 
 def start():
@@ -29,6 +30,7 @@ def start():
 
 
 def stop():
+    media_player.release()
     GPIO.output(relais_gpio, GPIO.LOW)  # screen on
     GPIO.cleanup()
 
@@ -61,10 +63,8 @@ def playMovie(path):
 #     GPIO.output(relais_gpio, GPIO.HIGH) #screen off
 
 
-def showPicture():
-    mediaFile = random.choice(os.listdir(imageDir))
-    mediaFilePath = os.path.join(imageDir, mediaFile)
-    media = vlc.Media(mediaFilePath)
+def showPicture(path):
+    media = vlc.Media(path)
     media_player.set_media(media)
     media_player.play()
     GPIO.output(relais_gpio, GPIO.LOW)  # screen on
@@ -74,10 +74,8 @@ def showPicture():
     GPIO.output(relais_gpio, GPIO.HIGH)  # screen off
 
 
-def playSound():
-    mediaFile = random.choice(os.listdir(soundDir))
-    mediaFilePath = os.path.join(soundDir, mediaFile)
-    media = vlc.Media(mediaFilePath)
+def playSound(path):
+    media = vlc.Media(path)
     media_player.set_media(media)
     media_player.play()
     # GPIO.output(relais_gpio, GPIO.LOW) #screen on (not needed for sound)
