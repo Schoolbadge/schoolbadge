@@ -5,10 +5,9 @@ import Logger as Logger
 def Read():
     r = random.randint(0, 1)
     if (r == 1):
-        id = random.choice(
+        value = random.choice(
             [("id123", "text123"), ("id456", "text456"), ("id789", "text789")])
-        text = "RFIDReaderMock"
-        return id, text
+        return value
     else:
         Logger.log(
             'RFIDReaderMock.read_no_block() failed: id: None text: leeg', "", "", Logger.Level.WARN)

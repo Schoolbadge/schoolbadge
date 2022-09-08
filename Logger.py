@@ -5,12 +5,14 @@ from datetime import datetime
 from enum import Enum
 from json import dumps as serialize
 import pandas as pd
+import os
 
 SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive'
 ]
-SERVICE_ACCOUNT_FILE = 'data/secret.json'
+SERVICE_ACCOUNT_FILE = 'conf/secret.json'
+LOG_DIR = 'data/logs'
 
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES)
@@ -41,7 +43,10 @@ def log(msg, badgeId, deviceRef, severity=Level.INFO):
     ]
     log = pd.DataFrame(data=values, columns=[
                        'timestamp', 'summary', 'badgeId', 'device', 'severity'])
-    log.to_csv('c:\\temp\\logs.csv', sep=';', index=False, mode="a")
+    today = datetime.today().strftime("%Y%m%d")
+    if not os.path.exists(LOG_DIR):
+        os.makedirs(LOG_DIR)
+    log.to_csv(LOG_DIR + today + '.csv', sep=';', index=False, mode="a")
     body = {
         'values': values
     }

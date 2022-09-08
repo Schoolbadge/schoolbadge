@@ -6,6 +6,12 @@
 
 # test setup
 
+3 subfolders
+
+- conf
+- media => images, videos
+- data => logging
+
 ## on windows
 
 - use chocolatey to required software: choco install python3 vlc git
@@ -14,10 +20,12 @@
 - run program: python3 ./schoolbadge.py
 
 ## on raspberry pi
+
 - sudo apt-get install libatlas-base-dev git
 
 Authentication git:
 => create personal access token (PAT)
+
 # hardware
 
 1. mfrc522 RFID badge reader
