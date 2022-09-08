@@ -1,14 +1,14 @@
 # Real Rpi Setup
-# import Logger
-# import RpiSetup as rpi
-# import RFIDReader as reader
-# import FunLib as funlib
+import Logger
+import RpiSetup as rpi
+import RFIDReader as reader
+import FunLib as funlib
 
 # Windows Mock Setup
-import Logger as Logger
-import RpiMock as rpi
-import RFIDReaderMock as reader
-import FunLib as funlib
+# import Logger as Logger
+# import RpiMock as rpi
+# import RFIDReaderMock as reader
+# import FunLib as funlib
 
 # definition of variables
 LoopOn = 1
