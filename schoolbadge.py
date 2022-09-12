@@ -3,6 +3,8 @@ import Logger
 import RpiSetup as rpi
 import RFIDReader as reader
 import FunLib as funlib
+import sys
+import traceback
 
 # Windows Mock Setup
 # import Logger as Logger
@@ -16,8 +18,15 @@ scannedBadgeIds = []
 aantalsucces = 0
 
 deviceConfig = rpi.start()
-Logger.log("Schoolbadge started", "",  deviceConfig['ref'], Logger.Level.INFO)
 
+
+def exception_handler(exception_type, value, tb):
+    Logger.exception(
+        exception_type, deviceConfig['ref'], traceback.extract_tb(tb))
+
+
+Logger.log("Schoolbadge started", "",  deviceConfig['ref'], Logger.Level.INFO)
+sys.excepthook = exception_handler
 try:
     while (LoopOn == 1):
         id, text = reader.Read()

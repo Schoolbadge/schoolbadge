@@ -1,4 +1,5 @@
 from distutils.log import debug
+from msilib.schema import Error
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from datetime import datetime
@@ -31,22 +32,30 @@ class Level(str, Enum):
     ERROR = 'ERROR'
 
 
-def log(msg, badgeId, deviceRef, severity=Level.INFO):
+def exception(summary, deviceRef, description):
+    log(Level.ERROR, summary, "", deviceRef, description)
+
+
+def log(severity, summary, badgeId, deviceRef, description):
     values = [
         [
+            serialize(severity),
             datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            msg,
+            summary,
             badgeId,
             deviceRef,
-            serialize(severity)
+            description
         ]
     ]
     log = pd.DataFrame(data=values, columns=[
-                       'timestamp', 'summary', 'badgeId', 'device', 'severity'])
+                       'severity', 'timestamp', 'summary', 'badgeId', 'device', 'description'])
     today = datetime.today().strftime("%Y%m%d")
+    # log on disk
     if not os.path.exists(LOG_DIR):
         os.makedirs(LOG_DIR)
     log.to_csv(LOG_DIR + today + '.csv', sep=';', index=False, mode="a")
+
+    # send to google sheet
     body = {
         'values': values
     }
