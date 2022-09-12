@@ -1,32 +1,10 @@
 # schoolbadge
 
+Start => Scan badge => Show movie / picture => Restart
+
 ## components
 
-- schoolbadge.py => RFID Reader
-
-# test setup
-
-3 subfolders
-
-- conf
-- media => images, videos
-- data => logging
-
-## on windows
-
-- use chocolatey to required software: choco install python3 vlc git
-- clone the repository
-- perform python install in project directory: python3 -m pip install -r requirements.txt
-- run program: python3 ./schoolbadge.py
-
-## on raspberry pi
-
-- sudo apt-get install libatlas-base-dev git
-
-Authentication git:
-=> create personal access token (PAT)
-
-# hardware
+### hardware
 
 1. mfrc522 RFID badge reader
 2. raspberry Pi 3 B
@@ -36,18 +14,31 @@ Authentication git:
 6. 5V Ip65 ~15 Watt transfo
 7. watertight enclosure
 
-# things learned so far:
+- schoolbadge.py => RFID Reader
 
-- running from shell script changes folder it's running from - hence use of full paths :-)
-- using usb stick got wonky - direct referral didn't work anymore - hence only SD (for now)
+# program setup
 
-# TO DO
+# prerequisites
 
-- add some kind of fault intercept/error handling to keep it running
-- add some kind of weekly/ daily mail with the data
-- instead of mail --> push reading to internet (but keap a log on sd card)
-- make raspberry pi accesible from internet (https://magpi.raspberrypi.com/articles/remote-access-your-raspberry-pi-securely)
-- stop making 2 log files
-- add some kind of error log (for fault investigations)
-- add more visual feedback on sound playback
-- activate sleep routines - maybe better to externalise those (use seperate programmable timer on the mains?)
+## on windows
+
+- use chocolatey to required software: choco install python3 vlc git
+
+## on raspberry pi
+
+- sudo apt-get install libatlas-base-dev git
+
+Authentication git:
+=> create personal access token (PAT)
+
+## general
+
+- clone repository: `git clone https://github.com/Schoolbadge/schoolbadge.git`
+- go to project directory: `cd schoolbadge`
+- install required python modules: `python3 -m pip install -r requirements.txt`
+- create 3 subfolders:
+  - conf
+  - media => images, videos
+  - data => logging
+- update device specific configuration in the configuration files
+- run program: python3 ./schoolbadge.py
