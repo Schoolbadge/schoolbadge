@@ -1,17 +1,10 @@
-
-
 import RPi.GPIO as GPIO
-import os
-import random
 import time
 import vlc
 import json
 
 
 relais_gpio = 17  # pin number for screen relais
-mediaDir = "/home/pi/Schoolbadge/media/"  # For movies
-imageDir = "/home/pi/Schoolbadge/images/"  # For pictures
-soundDir = "/home/pi/Schoolbadge/sound/"  # For sounds
 media_player = vlc.MediaPlayer()
 media_player.retain()
 
@@ -46,21 +39,6 @@ def playMovie(path):
     time.sleep(duration)
 
     GPIO.output(relais_gpio, GPIO.HIGH)  # screen off
-
-# def playMovie():
-#     mediaFile = random.choice(os.listdir(mediaDir))
-#     mediaFilePath = os.path.join(mediaDir, mediaFile)
-
-#     media = vlc.Media(mediaFilePath)
-#     media_player.set_media(media)
-
-#     media_player.play()
-#     GPIO.output(relais_gpio, GPIO.LOW) #screen on
-#     time.sleep(1) # before reading media player for lenght, we have to wait, otherwise mediaplayer is not yet ready ;-)
-#     Duur = media_player.get_length() #in miliseconds
-#     Duur = Duur/1000-1
-#     time.sleep(Duur)
-#     GPIO.output(relais_gpio, GPIO.HIGH) #screen off
 
 
 def showPicture(path):
