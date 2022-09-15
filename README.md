@@ -31,6 +31,9 @@ Start => Scan badge => Show movie / picture => Restart
 Authentication git:
 => create personal access token (PAT)
 
+- add autostartup config
+  on rpi: copy <schoolbadge-dir>/conf/schoolbadge.desktop => /etc/xdg/autostart
+
 ## general
 
 - clone repository: `git clone https://github.com/Schoolbadge/schoolbadge.git`
