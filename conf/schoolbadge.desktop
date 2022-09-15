@@ -1,0 +1,3 @@
+[Desktop Entry]
+Name=Schoolbadge
+Exec=lxterminal -e "cd /home/pi/schoolbadge && python3 schoolbadge.py"
