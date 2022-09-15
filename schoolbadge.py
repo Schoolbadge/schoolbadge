@@ -31,8 +31,8 @@ sys.excepthook = exception_handler
 try:
     while (LoopOn == 1):
         id, text = reader.Read()
-        Logger.log("Badge scanned ", id,
-                   deviceConfig['ref'], Logger.Level.INFO)
+        Logger.log(Logger.Level.INFO, "Badge scanned ", id,
+                   deviceConfig['ref'], "")
         if (id not in scannedBadgeIds):
             scannedBadgeIds.append(id)
             # sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
