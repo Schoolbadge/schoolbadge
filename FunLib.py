@@ -1,6 +1,9 @@
-mediaDir = "/home/pi/Schoolbadge/media/"  # For movies
-imageDir = "/home/pi/Schoolbadge/images/"  # For pictures
-soundDir = "/home/pi/Schoolbadge/sound/"  # For sounds
+import random
+import os
+
+moviesDir = "/home/pi/schoolbadge/media/movies"  # For movies
+picturesDir = "/home/pi/schoolbadge/media/pictures"  # For pictures
+soundsDir = "/home/pi/schoolbadge/media/sounds"  # For sounds
 
 
 def getPicture():
@@ -8,7 +11,9 @@ def getPicture():
 
 
 def getMovie():
-    return
+    movieFile = random.choice(os.listdir(moviesDir))
+    movieFilePath = os.path.join(moviesDir, movieFile)
+    return movieFilePath
 
 
 def getSound():
@@ -18,7 +23,8 @@ def getSound():
 
 
 def success(rpi):
-    rpi.showPicture("media/test.jpg")
+    movieFilePath = getMovie()
+    rpi.playMovie(movieFilePath)
 
 
 def fail(rpi):
