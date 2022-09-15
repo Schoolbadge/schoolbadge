@@ -25,7 +25,8 @@ def exception_handler(exception_type, value, tb):
         exception_type, deviceConfig['ref'], traceback.extract_tb(tb))
 
 
-Logger.log("Schoolbadge started", "",  deviceConfig['ref'], Logger.Level.INFO)
+Logger.log(Logger.Level.INFO, "Schoolbadge started",
+           "",  deviceConfig['ref'], "")
 sys.excepthook = exception_handler
 try:
     while (LoopOn == 1):
@@ -39,6 +40,6 @@ try:
         else:
             funlib.fail(rpi)
 except KeyboardInterrupt:
-    Logger.log("Schoolbadge stopped", "",
-               deviceConfig["ref"], Logger.Level.ERROR)
+    Logger.log(Logger.Level.ERROR, "Schoolbadge stopped",
+               "", deviceConfig["ref"], "KeyboardInterrupt")
     rpi.stop()
