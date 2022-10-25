@@ -13,7 +13,7 @@ def start():
     print("Computer is aan het opstarten...")
     GPIO.cleanup()
     media_player.toggle_fullscreen()
-    time.sleep(3)
+    time.sleep(5)
     GPIO.setmode(GPIO.BCM)  # board numbers
     # setup phase (klaarzetten voor loop)
     GPIO.setup(relais_gpio, GPIO.OUT)  # GPIO assign mode
