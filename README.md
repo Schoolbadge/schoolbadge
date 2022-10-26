@@ -22,7 +22,7 @@ Start => Scan badge => Show movie / picture => Restart
 
 ## on windows
 
-- use chocolatey to required software: choco install python3 vlc git
+- use chocolatey to install required software: choco install python3 vlc git
 
 ## on raspberry pi
 
