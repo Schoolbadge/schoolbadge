@@ -8,7 +8,7 @@ media_player = vlc.MediaPlayer()
 def start():
     print('rpi started')
     media_player.toggle_fullscreen()
-    with open('conf/device-conf.json', 'r') as configFile:
+    with open('conf/device.json', 'r') as configFile:
         conf = json.load(configFile)
     return conf
 
