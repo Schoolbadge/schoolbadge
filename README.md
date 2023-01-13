@@ -42,7 +42,7 @@ Authentication git:
 - create 3 subfolders:
   - conf
     - copy `device.json` => for device configuration settings
-    - copy `secret.json` => for authenciation to google services
+    - copy `secret.json` => for authentication to google services
   - media => images, videos
   - data => logging
 - update device specific configuration in the configuration files
