@@ -35,9 +35,8 @@ try:
                    deviceConfig['ref'], "")
         if (id not in scannedBadgeIds):
             scannedBadgeIds.append(id)
-            if (len(scannedBadgeIds) >= deviceConfig['scannedBadgesCacheSize']){
-                scannedBadgeIds = []
-            }
+            if (len(scannedBadgeIds) >= deviceConfig['scannedBadgesCacheSize'])
+            scannedBadgeIds = []
             # sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
             funlib.success(rpi)
         else:
