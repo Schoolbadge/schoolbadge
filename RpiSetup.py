@@ -18,7 +18,7 @@ def start():
     GPIO.setup(relais_gpio, GPIO.OUT)  # GPIO assign mode
     GPIO.output(relais_gpio, GPIO.HIGH)  # screen off
 
-    with open('conf/device-conf.json', 'r') as configFile:
+    with open('conf/device.json', 'r') as configFile:
         conf = json.load(configFile)
     return conf
 
