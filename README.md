@@ -41,6 +41,8 @@ Authentication git:
 - install required python modules: `python3 -m pip install -r requirements.txt`
 - create 3 subfolders:
   - conf
+    - copy `device.json` => for device configuration settings
+    - copy `secret.json` => for authenciation to google services
   - media => images, videos
   - data => logging
 - update device specific configuration in the configuration files
