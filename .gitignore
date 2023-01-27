@@ -1,5 +1,4 @@
 /conf/secret.json
 /conf/device.json
-/media
 /data
 __pycache__
