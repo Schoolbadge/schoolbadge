@@ -38,9 +38,9 @@ try:
             if (len(scannedBadgeIds) >= deviceConfig['scannedBadgesCacheSize']):
                 scannedBadgeIds = []
             # sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
-            funlib.success(rpi)
+            funlib.success(rpi, deviceConfig)
         else:
-            funlib.fail(rpi)
+            funlib.fail(rpi, deviceConfig)
 except KeyboardInterrupt:
     Logger.log(Logger.Level.ERROR, "Schoolbadge stopped",
                "", deviceConfig["ref"], "KeyboardInterrupt")

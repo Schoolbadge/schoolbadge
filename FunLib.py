@@ -1,31 +1,17 @@
 import random
 import os
 
-moviesDir = "/home/pi/schoolbadge/media/movies"  # For movies
-picturesDir = "/home/pi/schoolbadge/media/pictures"  # For pictures
-soundsDir = "/home/pi/schoolbadge/media/sounds"  # For sounds
 
-
-def getPicture():
-    return
-
-
-def getMovie():
-    movieFile = random.choice(os.listdir(moviesDir))
-    movieFilePath = os.path.join(moviesDir, movieFile)
-    return movieFilePath
-
-
-def getSound():
-    return
-
- # this function decides wheter a movie, sound or image is played, based on school lady preferences (1/5 is movie, 2/5 is audio, 2/5 is image)
-
-
-def success(rpi):
-    movieFilePath = getMovie()
+def success(rpi, deviceConfig):
+    movieFilePath = getRandomFile(deviceConfig["mediaDirPath"])
     rpi.playMovie(movieFilePath)
 
 
 def fail(rpi):
     rpi.playMovie("media/nee.mp4")
+
+
+def getRandomFile(mediaDirPath):
+    movieFilePath = random.choice([x for x in os.listdir(
+        mediaDirPath) if os.path.isfile(os.path.join(mediaDirPath, x))])
+    return movieFilePath
