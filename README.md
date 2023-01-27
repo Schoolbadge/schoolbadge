@@ -42,8 +42,8 @@ Authentication git:
 - create 3 subfolders:
   - conf
     - copy `device.json` => for device configuration settings
-    - copy `secret.json` => for authentication to google services
-  - media => images, videos
+    - copy `secret.json` => for authentication to google services      
   - data => logging
+  - media/success/* (a media/fail/nee.mp4 should be in the repo)
 - update device specific configuration in the configuration files
 - run program: python3 ./schoolbadge.py

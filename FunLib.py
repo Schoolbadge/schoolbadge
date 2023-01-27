@@ -7,6 +7,7 @@ def success(rpi, deviceConfig):
     successLib = os.path.join(deviceConfig['mediaDirPath'], 'success/**/*')
     print(successLib)
     mediaFilePath = getRandomFile(successLib)    
+    print(mediaFilePath)
     rpi.playMovie(mediaFilePath)
 
 

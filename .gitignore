@@ -1,4 +1,7 @@
 /conf/secret.json
 /conf/device.json
 /data
+/media/
+!/media/success/t1.jpg
+!/media/fail/nee.jpg
 __pycache__

@@ -40,7 +40,7 @@ try:
             # sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
             funlib.success(rpi, deviceConfig)
         else:
-            funlib.fail(rpi, deviceConfig)
+            funlib.fail(rpi)
 except KeyboardInterrupt:
     Logger.log(Logger.Level.ERROR, "Schoolbadge stopped",
                "", deviceConfig["ref"], "KeyboardInterrupt")
