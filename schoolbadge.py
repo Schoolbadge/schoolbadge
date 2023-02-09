@@ -31,10 +31,10 @@ sys.excepthook = exception_handler
 try:
     while (LoopOn == 1):
         id, text = reader.Read()
-        Logger.log(Logger.Level.INFO, "Badge scanned ", id,
-                   deviceConfig['ref'], "")
+        
         if (id not in scannedBadgeIds):
             scannedBadgeIds.append(id)
+            Logger.log(Logger.Level.INFO, "Badge scanned ", id,deviceConfig['ref'], "")
             if (len(scannedBadgeIds) >= deviceConfig['scannedBadgesCacheSize']):
                 scannedBadgeIds = []
             # sending the text was for visual perposes, but now, text is no longer correct (numbering scheme has been changed)
