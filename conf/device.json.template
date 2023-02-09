@@ -1,0 +1,5 @@
+{
+  "ref": "schoolbadge-test",
+  "scannedBadgesCacheSize": 2,
+  "mediaDirPath": "/home/pi/schoolbadge/media"
+}
