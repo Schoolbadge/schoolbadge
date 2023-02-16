@@ -26,6 +26,8 @@ Start => Scan badge => Show movie / picture => Restart
 
 ## on raspberry pi
 
+- enable SPI interface: sudo raspi-config > Interface > SPI
+- enable VNC interface: sudo raspi-config > Interface > VNC
 - sudo apt-get install libatlas-base-dev git
 
 Authentication git:
@@ -42,8 +44,8 @@ Authentication git:
 - create 3 subfolders:
   - conf
     - copy `device.json` => for device configuration settings
-    - copy `secret.json` => for authentication to google services      
+    - copy `secret.json` => for authentication to google services
   - data => logging
-  - media/success/* (a media/fail/nee.mp4 should be in the repo)
+  - media/success/\* (a media/fail/nee.mp4 should be in the repo)
 - update device specific configuration in the configuration files
 - run program: python3 ./schoolbadge.py
