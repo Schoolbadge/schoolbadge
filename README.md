@@ -41,11 +41,11 @@ Authentication git:
 - clone repository: `git clone https://github.com/Schoolbadge/schoolbadge.git`
 - go to project directory: `cd schoolbadge`
 - install required python modules: `python3 -m pip install -r requirements.txt`
-- create 3 subfolders:
+- configure device:
   - conf
     - copy `device.json` => for device configuration settings
     - copy `secret.json` => for authentication to google services
   - data => logging
   - media/success/\* (a media/fail/nee.mp4 should be in the repo)
-- update device specific configuration in the configuration files
+  - update device specific configuration in the configuration files
 - run program: python3 ./schoolbadge.py
