@@ -60,3 +60,19 @@ def log(severity, summary, badgeId, deviceRef, description):
     result = sheets_service.spreadsheets().values().append(
         spreadsheetId=spreadsheet_id, range=range_name,
         valueInputOption=value_input_option, body=body).execute()
+
+
+def logBadge(id):
+    values = [
+        [
+            id
+        ]
+    ]
+    badgeInfo = pd.DataFrame(data=values, columns=['badgeId'])
+    # send to google sheet
+    body = {
+        'values': values
+    }
+    result = sheets_service.spreadsheets().values().append(
+        spreadsheetId=spreadsheet_id, range=range_name,
+        valueInputOption=value_input_option, body=body).execute()
