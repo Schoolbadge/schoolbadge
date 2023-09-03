@@ -62,7 +62,8 @@ def log(severity, summary, badgeId, deviceRef, description):
         valueInputOption=value_input_option, body=body).execute()
 
 
-def logBadge(id):
+def logBadge(id, text):
+    print("Badge ID: " + id + " Text: " + text)
     values = [
         [
             id
