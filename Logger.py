@@ -62,11 +62,22 @@ def log(severity, summary, badgeId, deviceRef, description):
         valueInputOption=value_input_option, body=body).execute()
 
 
-def logBadge(id, text):
-    print("Badge ID: " + str(id) + " Text: " + text)
+def getLastRowIndex():
+    result = sheets_service.spreadsheets().values().get(
+        spreadsheetId=spreadsheet_id, range='badges!A:C',
+        majorDimension='ROWS', valueRenderOption='UNFORMATTED_VALUE'
+    ).execute()
+    lastRow = result['values'][-1]
+    return lastRow[0]
+
+
+def logBadge(fluovestNummer, badgeId):
+    print("fluovestNummer: " + str(fluovestNummer) + " badgeId: " + str(badgeId))
+    # get the cell value of the last row in the google spreadsheet
     values = [
         [
-            id
+            fluovestNummer,
+            badgeId
         ]
     ]
     badgeInfo = pd.DataFrame(data=values, columns=['badgeId'])
@@ -75,5 +86,5 @@ def logBadge(id, text):
         'values': values
     }
     result = sheets_service.spreadsheets().values().append(
-        spreadsheetId=spreadsheet_id, range=range_name,
+        spreadsheetId=spreadsheet_id, range='badges!A:C',
         valueInputOption=value_input_option, body=body).execute()
