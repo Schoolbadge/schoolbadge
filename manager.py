@@ -4,4 +4,4 @@ import Logger
 
 while (True):
     id, text = reader.Read()
-    Logger.LogBadge(id, text)
+    Logger.logBadge(id, text)
