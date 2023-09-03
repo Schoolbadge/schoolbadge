@@ -80,7 +80,8 @@ def logBadge(fluovestNummer, badgeId):
             badgeId
         ]
     ]
-    badgeInfo = pd.DataFrame(data=values, columns=['badgeId'])
+    badgeInfo = pd.DataFrame(data=values, columns=[
+                             'fluovestNummer', 'badgeId'])
     # send to google sheet
     body = {
         'values': values
