@@ -63,7 +63,7 @@ def log(severity, summary, badgeId, deviceRef, description):
 
 
 def logBadge(id, text):
-    print("Badge ID: " + id + " Text: " + text)
+    print("Badge ID: " + str(id) + " Text: " + text)
     values = [
         [
             id
